@@ -5,13 +5,14 @@
         Personnalisez la stratégie de sécurité de contenu dans la balise meta ci-dessous selon vos besoins. Ajoutez 'unsafe-inline' à default-src pour activer JavaScript directement dans les lignes.
         Pour obtenir des détails, consultez http://go.microsoft.com/fwlink/?LinkID=617521
     -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com ; style-src 'self' 'unsafe-inline'; media-src *">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com  'unsafe-eval' 'unsafe-inline'; style-src 'self' unsafe-line; media-src *">
         
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 
         <title>contacts</title>
     </head>
@@ -25,11 +26,23 @@
             <h1>Liste des employ&eacute;s</h1>
         </div>
 
-        <div id="wrapper">
-            <ul id="employeList" class="icon-list"></ul>
+        <div id="wrapper" >
+            <ul id="employeList" class="icon-list">
+                <li>
+                    <a href="employedetails.html?id=1">
+                        <p class="line1">jose</p>
+                        <p class="line2">Garcia </p>
+                        <span class="bubble">sqgsdfg</span>
+                    </a>
+                </li>
+              </ul>
         </div>
 
         <div id="busy">Loading...</div>
+
+        <!--<div id="employeesList" class="list-group">
+           
+        </div>-->
 
 
 
@@ -40,8 +53,9 @@
         <script type="text/javascript" src="scripts/platformOverrides.js"></script>
         
         <script type="text/javascript" src="scripts/jquery-3.2.1.min.js"   ></script>
+       
         <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
-        <script type="text/javascript" src="scripts/iscroll.js"></script>
+        <!--<script type="text/javascript" src="scripts/iscroll.js"></script>-->
 
         <script type="text/javascript" src="scripts/index.js"></script>
 
