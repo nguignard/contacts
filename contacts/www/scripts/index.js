@@ -27,4 +27,28 @@
     function onResume() {
         // TODO: cette application a été réactivée. Restaurez l'état de l'application ici.
     };
+
+
+
+
+    var db;
+    var scroll = new iscroll('wrapper', { vScrollbar: false, hScrollbar: false, hScroll: false });
+
+    db = window.openDatabase("AnnuaireEmployesDB", "1.0", "Gestion Salariés", 5 * 1024 * 1025); 
+    db.transaction(populateDB, transaction_error, populateDB_success);
+
+
+
+    function transaction_error() {
+
+        console.log('transaction_error');
+        $('#busy').empty();
+        $('#busy').html("erreur de transaction");
+
+
+    }
+
+
+
+
 } )();
