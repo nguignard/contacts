@@ -83,11 +83,25 @@ function getUrlVars() {
             $('#employeTitre').text(employe.titre);
             $('#ville').text(employe.ville);
 
-                //'<li class="list-group-item" > <a href="employedetails.html?id=' + employe.id + employe.managerId'">' +
-                //employe.nom + ' ' + employe.prenom +
-                ////'<p class="list-group-item">' + employe.prenom + '</p>'  +
-                ///*  '<span class="bubble">' + employe.rapportCount + '</span>*/'</a></li>');
-        
+
+            $('#busy').hide();
+
+            if (employe.managerID>0) {
+                $('#actionList').append('<li> ' +
+                    '<a href="employedetails.html?id=' + employe.managerID + '" > ' +
+                    '<p class="list-group-item"> Voir Manager </p>' +
+                    '<p class="list-group-item">'+ employe.managerPrenom + ' ' + employe.managerNom + '</p>' +
+                    '</a></li>');
+                
+
+
+                 
+            }
+
+
+
+
+
 
         setTimeout(scroll.refresh, 1000);
         db = null;
