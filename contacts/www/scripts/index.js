@@ -4,7 +4,9 @@
 // puis exécutez "window.location.reload()" dans la console JavaScript.
 
 var db;
-//var scroll = new iscroll('#wrapper', { vScrollbar: false, hScrollbar: false, hScroll: false });
+var myScroll = new IScroll('#wrapper', {
+    vScrollbar: false, hScrollbar: false, hScroll: false
+});
 
 (function () {
     "use strict";
@@ -17,6 +19,7 @@ var db;
         document.addEventListener( 'resume', onResume.bind( this ), false );
 
         db = window.openDatabase("AnnuaireEmployesDB", "1.0", "Gestion Salariés", 5 * 1024 * 1025);
+
         db.transaction(populateDB, transaction_error, populateDB_success);
     };
 
@@ -29,7 +32,10 @@ var db;
     };
 
     function populateDB(tx) {
+       
         console.log("populateDB");
+
+        console.log(tx);
 
         $('#busy').show();
         tx.executeSql('DROP TABLE IF EXISTS employe');
@@ -106,16 +112,23 @@ var db;
             var employe = results.rows.item(i);
             console.log(employe.nom);
 
-            $('#employeList').append(
-                '<li> <a href="employedetails.html?id=' + employe.id + '">' +
+
+            console.log( '<li> <a href="employedetails.html?id=' + employe.id + '">' +
                 '<p class="line1">' + employe.nom + '</p>' +
                 '<p class="line2">' + employe.prenom + '</p>' +
                 '<span class="bubble">' + employe.rapportCount + '</span></a></li>');
+
+            $('#employeList').append(
+                '<li class="list-group-item" > <a href="employedetails.html?id=' + employe.id + '">' +
+                 employe.nom + ' ' + employe.prenom + 
+                //'<p class="list-group-item">' + employe.prenom + '</p>'  +
+                /*  '<span class="bubble">' + employe.rapportCount + '</span>*/'</a></li>');
         }
 
         setTimeout(
-             scroll.refresh , 100);
-            db = null;
+            scroll.refresh, 1000);
+
+         db = null;
 
 
 
