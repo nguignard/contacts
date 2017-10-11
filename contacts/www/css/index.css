@@ -95,3 +95,20 @@ h1 {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
 }
+
+
+li .bubble {
+    clear: both;
+    position: absolute;
+    right: 12px;
+    background-color: #ECEFF2;
+    border-radius: 10px;
+    font-size: 14px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin: 0px;
+    margin-top: -50px;
+    text-align: center;
+}

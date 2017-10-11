@@ -3,6 +3,9 @@
 // Pour déboguer du code durant le chargement d'une page dans cordova-simulate ou sur les appareils/émulateurs Android, lancez votre application, définissez des points d'arrêt, 
 // puis exécutez "window.location.reload()" dans la console JavaScript.
 
+
+
+console.log('INDEX');
 var db;
 var myScroll = new IScroll('#wrapper', {
     vScrollbar: false, hScrollbar: false, hScroll: false
@@ -57,11 +60,11 @@ var myScroll = new IScroll('#wrapper', {
         // Exécution des requêtes d'insertion du jeu d'essai.
         tx.executeSql(" INSERT INTO employe " +
             "(id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES " +
-            "(12, 'Steve', 'Dutronc', 4, 'Architecte Logiciel', 'Ingénierie', '0492458741', '0625874169', 'sdutronc@fakemail.com','Nice') ");
+            "(3, 'Steve', 'Dutronc', 4, 'Architecte Logiciel', 'Ingénierie', '0492458741', '0625874169', 'sdutronc@fakemail.com','Nice') ");
 
 
         tx.executeSql(" INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville)" +
-            "VALUES (11, 'Emma', 'Jones', 5, 'Chef des ventes', 'Ventes', '0492458742', '0625876164', 'ejones@fakemail.com','Nice')");
+            "VALUES (2, 'Emma', 'Jones', 5, 'Chef des ventes', 'Ventes', '0492458742', '0625876164', 'ejones@fakemail.com','Nice')");
 
         tx.executeSql(" INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville)" +
             "VALUES (1, 'Gérard', 'Houlet', 0, 'PDG', 'Direction', '0492458700', '0612489423', 'ghoulet@fakemail.com' ,'Monaco') ");
@@ -69,12 +72,12 @@ var myScroll = new IScroll('#wrapper', {
 
 
 
-        tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (10, 'Catherine', 'Bouisse', 5, 'Chef de ventes','Ventes','0492458743','0625126187','cbouisse@fakemail.com','Cannes')");
-        tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (9, 'Guillaume', 'Durand', 2, 'Marketing', 'Marketing', '0492458740', '0624121167', 'gdurand@fakemail.com','Nice')");
-        tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (8, 'Lisa', 'Wong', 2, 'Directrice Marketing','Marketing','0492458744','0684541147','lwong@fakemail.com','Cagnes sur Mer')");
-        tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (7, 'Paulette', 'Martin', 4, 'Architecte Logiciel','Ingénierie','0492458745','0634544122','pmartin@fakemail.com','Nice')");
-        tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES  (5, 'Raymond', 'Milau', 1, 'Commercial', 'Ventes', '0492458746', '0631554128', 'rmilau@fakemail.com','Cannes')");
-        tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (6, 'Paul', 'Juste', 4, 'Responsable Technique','Ingénierie','0492458747','0644161761','pjuste@fakemail.com','Nice')");
+        tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (4, 'Catherine', 'Bouisse', 1, 'Chef de ventes','Ventes','0492458743','0625126187','cbouisse@fakemail.com','Cannes')");
+        tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (5, 'Guillaume', 'Durand', 1, 'Marketing', 'Marketing', '0492458740', '0624121167', 'gdurand@fakemail.com','Nice')");
+        tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (6, 'Lisa', 'Wong', 1, 'Directrice Marketing','Marketing','0492458744','0684541147','lwong@fakemail.com','Cagnes sur Mer')");
+        tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (7, 'Paulette', 'Martin', 2, 'Architecte Logiciel','Ingénierie','0492458745','0634544122','pmartin@fakemail.com','Nice')");
+        tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES  (8, 'Raymond', 'Milau', 1, 'Commercial', 'Ventes', '0492458746', '0631554128', 'rmilau@fakemail.com','Cannes')");
+        tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (9, 'Paul', 'Juste', 3, 'Responsable Technique','Ingénierie','0492458747','0644161761','pjuste@fakemail.com','Nice')");
 
 
 
@@ -123,16 +126,19 @@ var myScroll = new IScroll('#wrapper', {
             console.log(employe.nom);
 
 
-            console.log( '<li> <a href="employedetails.html?id=' + employe.id + '">' +
-                '<p class="line1">' + employe.nom + '</p>' +
-                '<p class="line2">' + employe.prenom + '</p>' +
-                '<span class="bubble">' + employe.rapportCount + '</span></a></li>');
-
             $('#employeList').append(
-                '<li class="list-group-item" > <a href="employedetails.html?id=' + employe.id + '">' +
-                 employe.nom + ' ' + employe.prenom + 
-                //'<p class="list-group-item">' + employe.prenom + '</p>'  +
-                /*  '<span class="bubble">' + employe.rapportCount + '</span>*/'</a></li>');
+                '<li class="list-group-item " > <a href="employedetails.html?id='+ employe.id + '">'
+                + '<p class="list-group-item active">'
+                + employe.id + ' '
+                + employe.nom +     ' '
+                + employe.prenom
+                + '</p>'
+                + '<p class="list-group-item">'
+                + employe.titre
+                + '</p>'
+                + '<span class="bubble">'
+                + employe.rapportCount
+                + '</span></a></li>');
         }
 
         setTimeout(
