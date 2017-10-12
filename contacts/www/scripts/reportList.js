@@ -83,7 +83,7 @@ function getUrlVars() {
     function getReport_succes(tx, results) {
         console.log("Im getEmployes_succes");
 
-        $('#busy').hide;
+        $('#busy').hide();
        
          var len = results.rows.length;
 

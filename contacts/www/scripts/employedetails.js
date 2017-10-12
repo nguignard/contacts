@@ -139,12 +139,7 @@ function getUrlVars() {
                 + '</li>'
             );
 
-            $('#actionList').append(
-                '<li class="list-group-item">'
-                + '<a href="#" id="adcontact"><p class="list-group-item" >  Ajouter Contact '
-                + '</p ></a >'
-                + '</li>'
-            );
+        
 
 
             $('#actionList').append(
@@ -158,7 +153,7 @@ function getUrlVars() {
         db = null;
     }
 
-            //$('#adcontact').click(addContact(employe));
+        
     
 
     function addContact(employe) {
