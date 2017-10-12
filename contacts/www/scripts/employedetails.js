@@ -41,6 +41,11 @@ function getUrlVars() {
         db.transaction(getEmploye, transaction_error);
     };
 
+
+
+
+
+
     function onPause() {
         alert('en Pause');
     };

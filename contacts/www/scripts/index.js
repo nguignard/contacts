@@ -1,20 +1,9 @@
-﻿// Pour obtenir une présentation du modèle Vide, consultez la documentation suivante :
-// http://go.microsoft.com/fwlink/?LinkID=397704
-// Pour déboguer du code durant le chargement d'une page dans cordova-simulate ou sur les appareils/émulateurs Android, lancez votre application, définissez des points d'arrêt, 
-// puis exécutez "window.location.reload()" dans la console JavaScript.
-
-
-
-console.log('INDEX');
-var db;
-var contacts;
+﻿console.log('INDEX');
 
 var myScroll = new IScroll('#wrapper', {
     vScrollbar: false, hScrollbar: false, hScroll: false
 });
-
-
-
+var db;
 
 
 (function () {
@@ -27,24 +16,10 @@ var myScroll = new IScroll('#wrapper', {
         document.addEventListener( 'pause', onPause.bind( this ), false );
         document.addEventListener( 'resume', onResume.bind( this ), false );
 
-        $.ajax({
-            url: "http://bip08:8080/ServiceStagiaire.svc/web/stagiaires/1",
-            cache: false, // pas de cache pour avoir les donnees à jour tout le temps
-            type: 'GET',
-            dataType: 'json',
-            success: function (data, statut) {
-                                console.log('data', data);
-                contacts = data;
-                console.log('contacts', contacts);
-            }
-        });
-
-        console.log('contacts', contacts);
-
         db = window.openDatabase("AnnuaireAbiDB", "1.0", "Gestion contact", 5 * 1024 * 1025);
-        db.transaction(populateDB, transaction_error, populateDB_success);
+        db.transaction(createLocalDB, transaction_error, populateDB_success);
 
-
+        console.log(db);
     };
 
 
@@ -56,7 +31,7 @@ var myScroll = new IScroll('#wrapper', {
         // TODO: cette application a été réactivée. Restaurez l'état de l'application ici.
     };
 
-    function populateDB(tx) {
+    function createLocalDB(tx) {
         console.log("populateDB");
         console.log(tx);
 
@@ -72,11 +47,37 @@ var myScroll = new IScroll('#wrapper', {
         console.log('createsql base', sql);
         tx.executeSql(sql);
         console.log('createsql baseOK');
+
         // Exécution des requêtes d'insertion du jeu d'essai.
-        
 
-
+        $.ajax({
+            url: "http://bip08:8080/ServiceStagiaire.svc/web/stagiaires/1",
+            cache: false, // pas de cache pour avoir les donnees à jour tout le temps
+            type: 'GET',
+            dataType: 'json',
+            success: function (data, statut) {
+                db.transaction(getExtDb, ExtTransaction_error);
+            }
+        });
     }
+
+        function getExtDb(tx, data) {
+
+            data.foreach((e) => {
+                console.log('e',e);
+                //var sql = `INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (4, 'Catherine', 'Bouisse', 1, 'Chef de ventes','Ventes','0492458743','0625126187','cbouisse@fakemail.com','Cannes')`;
+                //tx.executeSql(sql);
+               
+            });
+        };
+
+        function ExtTransaction_error(tx) {
+            ('#busy').hide(); // on cache le chargement
+            alert("Erreur d'accès bdd: " + error); //
+        }
+
+    
+    
 
 
     function ManualValues(tx) {
@@ -103,7 +104,7 @@ var myScroll = new IScroll('#wrapper', {
     
 
 
-    }
+    
 
 
 
@@ -133,26 +134,10 @@ var myScroll = new IScroll('#wrapper', {
     function getEmployes_succes(tx, results) {
         console.log("Im getEmployes_succes");
         $('#busy').hide();
-        //var employees = JSON.parse(JSON.stringify(results.rows));
-        //$.each(employees, (k, v) => {
-        //    let c = "list-group-item ";
-        //    if (k === "0") {
-                
-        //        c += "active";
-        //    }
-        //        console.log(c);
-        //    $('#employeesList').append(`<a class="${c}">${v.nom} ${v.prenom}</a>`);
-        //});
-
-
         var len = results.rows.length;
-
         for (var i = 0; i < len; i++) {
-
             var employe = results.rows.item(i);
             console.log(employe.nom);
-
-
             $('#employeList').append(
                 '<li class="list-group-item " > <a href="employedetails.html?id='+ employe.id + '">'
                 + '<p class="list-group-item active">'
@@ -167,15 +152,8 @@ var myScroll = new IScroll('#wrapper', {
                 + employe.rapportCount
                 + '</span></a></li>');
         }
-
-        setTimeout(
-            scroll.refresh, 1000);
-
+        setTimeout(scroll.refresh, 1000);
          db = null;
-
-
-
-
     }
 
 
