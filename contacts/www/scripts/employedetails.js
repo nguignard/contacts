@@ -6,7 +6,7 @@ var monScroll = new IScroll('#wrapper', {
 var db;
 var id = getUrlVars()["id"];
 
-console.log(id);
+console.log('id',id);
 
 function getUrlVars() {
     var vars = [], hash;
@@ -65,18 +65,15 @@ function getUrlVars() {
         //    "from employe e left join employe r on r.managerId = e.id left join employe m on e.managerId = m.id " +
         //    "where e.id=" + id + " group by e.nom order by e.nom, e.prenom";
 
-        var sqlT = `select e.id, e.prenom, e.nom, e.managerId, e.titre, e.departement, e.ville, e.telBureau, e.telPortable, e.email,  
-                    m.prenom managerPrenom, m.nom managerNom, count(r.id) reportCount
+        var sqlT = `select e.id, e.prenom, e.nom
                     from employe e 
-                    left join employe r on r.managerId = e.id
-                    left join employe m on e.managerId = m.id
-                    where e.id= :id group by e.nom
+                    where e.id= :id
                     order by e.nom, e.prenom`;
 
 
-        var sql = "select e.id, e.prenom, e.nom, e.titre, count(r.id) rapportCount " +
-            "from employe e left join employe r on r.managerId = e.id " +
-            "group by e.id order by e.nom, e.prenom";
+        //var sql = "select e.id, e.prenom, e.nom, e.titre, count(r.id) rapportCount " +
+        //    "from employe e left join employe r on r.managerId = e.id " +
+        //    "group by e.id order by e.nom, e.prenom";
 
 
         console.log(sqlT);
@@ -100,8 +97,7 @@ function getUrlVars() {
             $('#ville').text(employe.ville);
 
             $('#busy').hide();
-
-            console.log(employe.managerId);
+        
 
             if (employe.managerId > 0) {
                 $('#actionList').append(
