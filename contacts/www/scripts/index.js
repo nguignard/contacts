@@ -62,15 +62,11 @@ var myScroll = new IScroll('#wrapper', {
             "(id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES " +
             "(3, 'Steve', 'Dutronc', 4, 'Architecte Logiciel', 'Ingénierie', '0492458741', '0625874169', 'sdutronc@fakemail.com','Nice') ");
 
-
         tx.executeSql(" INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville)" +
             "VALUES (2, 'Emma', 'Jones', 5, 'Chef des ventes', 'Ventes', '0492458742', '0625876164', 'ejones@fakemail.com','Nice')");
 
         tx.executeSql(" INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville)" +
             "VALUES (1, 'Gérard', 'Houlet', 0, 'PDG', 'Direction', '0492458700', '0612489423', 'ghoulet@fakemail.com' ,'Monaco') ");
-
-
-
 
         tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (4, 'Catherine', 'Bouisse', 1, 'Chef de ventes','Ventes','0492458743','0625126187','cbouisse@fakemail.com','Cannes')");
         tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (5, 'Guillaume', 'Durand', 1, 'Marketing', 'Marketing', '0492458740', '0624121167', 'gdurand@fakemail.com','Nice')");
@@ -78,8 +74,6 @@ var myScroll = new IScroll('#wrapper', {
         tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (7, 'Paulette', 'Martin', 2, 'Architecte Logiciel','Ingénierie','0492458745','0634544122','pmartin@fakemail.com','Nice')");
         tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES  (8, 'Raymond', 'Milau', 1, 'Commercial', 'Ventes', '0492458746', '0631554128', 'rmilau@fakemail.com','Cannes')");
         tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (9, 'Paul', 'Juste', 3, 'Responsable Technique','Ingénierie','0492458747','0644161761','pjuste@fakemail.com','Nice')");
-
-
 
     }
 
@@ -105,7 +99,7 @@ var myScroll = new IScroll('#wrapper', {
 
     function getEmployes_succes(tx, results) {
         console.log("Im getEmployes_succes");
-        $('#busy').hide;
+        $('#busy').hide();
         //var employees = JSON.parse(JSON.stringify(results.rows));
         //$.each(employees, (k, v) => {
         //    let c = "list-group-item ";
@@ -125,7 +119,6 @@ var myScroll = new IScroll('#wrapper', {
             var employe = results.rows.item(i);
             console.log(employe.nom);
 
-
             $('#employeList').append(
                 '<li class="list-group-item " > <a href="employedetails.html?id='+ employe.id + '">'
                 + '<p class="list-group-item active">'
@@ -140,6 +133,11 @@ var myScroll = new IScroll('#wrapper', {
                 + employe.rapportCount
                 + '</span></a></li>');
         }
+
+
+        $('#employeList').append(
+            '<a href=index.html><button type="button" class="btn btn-primary">Home</button></a>'
+        );
 
         setTimeout(
             scroll.refresh, 1000);

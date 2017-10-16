@@ -140,14 +140,6 @@ function getUrlVars() {
             );
 
             $('#actionList').append(
-                '<li class="list-group-item">'
-                + '<a href="#" id="adcontact"><p class="list-group-item" >  Ajouter Contact '
-                + '</p ></a >'
-                + '</li>'
-            );
-
-
-            $('#actionList').append(
             '<a href=index.html><button type="button" class="btn btn-primary">Home</button></a>'
             );
         
