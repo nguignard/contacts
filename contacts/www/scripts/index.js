@@ -33,11 +33,38 @@ var myScroll = new IScroll('#wrapper', {
         // TODO: cette application a été réactivée. Restaurez l'état de l'application ici.
     };
 
+    function getRest() {
+        $.ajax({
+            url: "http://bip08:8080/ServiceStagiaire.svc/web/stagiaires/1",
+            cache: false,
+            type: 'GET',
+            dataType: "json",
+            success: function (data, statut) {
+
+
+                tx.executeSql("INSERT INTO employe (id, prenom, nom, telPortable) VALUES (9, 'Paul', 'Juste', '0644161761')");
+
+
+
+
+            }
+        });
+       }
+
+
+       
+
+
+
+
+
+
     function populateDB(tx) {
+        $('#busy').show();
+
         console.log("populateDB");
         console.log(tx);
 
-        $('#busy').show();
         tx.executeSql('DROP TABLE IF EXISTS employe');
 
         var sql =
@@ -53,27 +80,40 @@ var myScroll = new IScroll('#wrapper', {
             " telPortable VARCHAR(30)," +
             " email VARCHAR(30) )";
 
-
         tx.executeSql(sql);
+
+        getRest();
+
+
+
+
+
 
 
         // Exécution des requêtes d'insertion du jeu d'essai.
-        tx.executeSql(" INSERT INTO employe " +
-            "(id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES " +
-            "(3, 'Steve', 'Dutronc', 4, 'Architecte Logiciel', 'Ingénierie', '0492458741', '0625874169', 'sdutronc@fakemail.com','Nice') ");
+        //tx.executeSql(" INSERT INTO employe " +
+        //    "(id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES " +
+        //    "(3, 'Steve', 'Dutronc', 4, 'Architecte Logiciel', 'Ingénierie', '0492458741', '0625874169', 'sdutronc@fakemail.com','Nice') ");
 
-        tx.executeSql(" INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville)" +
-            "VALUES (2, 'Emma', 'Jones', 5, 'Chef des ventes', 'Ventes', '0492458742', '0625876164', 'ejones@fakemail.com','Nice')");
+        //tx.executeSql(" INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville)" +
+        //    "VALUES (2, 'Emma', 'Jones', 5, 'Chef des ventes', 'Ventes', '0492458742', '0625876164', 'ejones@fakemail.com','Nice')");
 
-        tx.executeSql(" INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville)" +
-            "VALUES (1, 'Gérard', 'Houlet', 0, 'PDG', 'Direction', '0492458700', '0612489423', 'ghoulet@fakemail.com' ,'Monaco') ");
+        //tx.executeSql(" INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville)" +
+        //    "VALUES (1, 'Gérard', 'Houlet', 0, 'PDG', 'Direction', '0492458700', '0612489423', 'ghoulet@fakemail.com' ,'Monaco') ");
 
-        tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (4, 'Catherine', 'Bouisse', 1, 'Chef de ventes','Ventes','0492458743','0625126187','cbouisse@fakemail.com','Cannes')");
-        tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (5, 'Guillaume', 'Durand', 1, 'Marketing', 'Marketing', '0492458740', '0624121167', 'gdurand@fakemail.com','Nice')");
-        tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (6, 'Lisa', 'Wong', 1, 'Directrice Marketing','Marketing','0492458744','0684541147','lwong@fakemail.com','Cagnes sur Mer')");
-        tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (7, 'Paulette', 'Martin', 2, 'Architecte Logiciel','Ingénierie','0492458745','0634544122','pmartin@fakemail.com','Nice')");
-        tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES  (8, 'Raymond', 'Milau', 1, 'Commercial', 'Ventes', '0492458746', '0631554128', 'rmilau@fakemail.com','Cannes')");
-        tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (9, 'Paul', 'Juste', 3, 'Responsable Technique','Ingénierie','0492458747','0644161761','pjuste@fakemail.com','Nice')");
+        //tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (4, 'Catherine', 'Bouisse', 1, 'Chef de ventes','Ventes','0492458743','0625126187','cbouisse@fakemail.com','Cannes')");
+        //tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (5, 'Guillaume', 'Durand', 1, 'Marketing', 'Marketing', '0492458740', '0624121167', 'gdurand@fakemail.com','Nice')");
+        //tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (6, 'Lisa', 'Wong', 1, 'Directrice Marketing','Marketing','0492458744','0684541147','lwong@fakemail.com','Cagnes sur Mer')");
+        //tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (7, 'Paulette', 'Martin', 2, 'Architecte Logiciel','Ingénierie','0492458745','0634544122','pmartin@fakemail.com','Nice')");
+        //tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES  (8, 'Raymond', 'Milau', 1, 'Commercial', 'Ventes', '0492458746', '0631554128', 'rmilau@fakemail.com','Cannes')");
+        //tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (9, 'Paul', 'Juste', 3, 'Responsable Technique','Ingénierie','0492458747','0644161761','pjuste@fakemail.com','Nice')");
+
+
+
+
+
+
+
 
     }
 
