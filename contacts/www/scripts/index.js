@@ -33,26 +33,9 @@ var myScroll = new IScroll('#wrapper', {
         // TODO: cette application a été réactivée. Restaurez l'état de l'application ici.
     };
 
-    function getRest() {
-        $.ajax({
-            url: "http://bip08:8080/ServiceStagiaire.svc/web/stagiaires/1",
-            cache: false,
-            type: 'GET',
-            dataType: "json",
-            success: function (data, statut) {
-
-
-                tx.executeSql("INSERT INTO employe (id, prenom, nom, telPortable) VALUES (9, 'Paul', 'Juste', '0644161761')");
-
-
-
-
-            }
-        });
-       }
-
-
+    function getRest(tx) {
        
+       }
 
 
 
@@ -62,27 +45,41 @@ var myScroll = new IScroll('#wrapper', {
     function populateDB(tx) {
         $('#busy').show();
 
-        console.log("populateDB");
-        console.log(tx);
-
+        console.log("populateDB", tx);
         tx.executeSql('DROP TABLE IF EXISTS employe');
 
-        var sql =
-            "CREATE TABLE IF NOT EXISTS employe (" +
-            "id INTEGER PRIMARY KEY, " +
-            "prenom VARCHAR(50), " +
-            " nom VARCHAR(50), " +
-            " titre VARCHAR(50), " +
-            " departement VARCHAR(50)," +
-            " managerId INTEGER, " +
-            " ville VARCHAR(50), " +
-            " telBureau VARCHAR(30), " +
-            " telPortable VARCHAR(30)," +
-            " email VARCHAR(30) )";
-
+        var sql = "CREATE TABLE IF NOT EXISTS employe (id INTEGER PRIMARY KEY, prenom VARCHAR(50), nom VARCHAR(50), telPortable VARCHAR(30))";
+        console.log('sql', sql);
         tx.executeSql(sql);
 
-        getRest();
+
+
+        console.log('LocalDB ok')
+
+        $.ajax({
+            url: "http://bip08:8080/ServiceStagiaire.svc/web/stagiaires/1",
+            cache: false,
+            type: 'GET',
+            dataType: "json",
+            success: function (data, statut, tx) {
+                ((data, tx) => {
+                    console.log('data', data);
+                    console.log('TX', tx);
+                    var sql = "INSERT INTO employe (id, prenom, nom, telPortable) VALUES (9, 'Paul', 'Juste', '0644161761')";
+                    console.log('sql', sql);
+                    tx.executeSql(sql);
+                });
+            }
+        });
+
+              
+        console.log('Ajax ok')
+    
+
+
+
+            
+       
 
 
 
@@ -108,13 +105,6 @@ var myScroll = new IScroll('#wrapper', {
         //tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES  (8, 'Raymond', 'Milau', 1, 'Commercial', 'Ventes', '0492458746', '0631554128', 'rmilau@fakemail.com','Cannes')");
         //tx.executeSql("INSERT INTO employe (id, prenom, nom, managerId, titre, departement, telBureau, telPortable, email, ville) VALUES (9, 'Paul', 'Juste', 3, 'Responsable Technique','Ingénierie','0492458747','0644161761','pjuste@fakemail.com','Nice')");
 
-
-
-
-
-
-
-
     }
 
     function transaction_error(tx,error) {
@@ -130,9 +120,15 @@ var myScroll = new IScroll('#wrapper', {
     function getEmployes(tx){
         console.log("Im getEmploye");
 
-        var sql = "select e.id, e.prenom, e.nom, e.titre, count(r.id) rapportCount " +
-            "from employe e left join employe r on r.managerId = e.id " +
+        //var sqloLD = "select e.id, e.prenom, e.nom, e.titre, count(r.id) rapportCount " +
+        //    "from employe e left join employe r on r.managerId = e.id " +
+        //    "group by e.id order by e.nom, e.prenom";
+
+        var sql = "select e.id, e.prenom, e.nom" +
+            "from employe e  " +
             "group by e.id order by e.nom, e.prenom";
+
+        console.log(sql);
 
         tx.executeSql(sql, [], getEmployes_succes);
     };
